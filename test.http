@@ -1,0 +1,40 @@
+# Comic Endpoints
+###
+# 1. Create a new comic
+POST http://localhost:3000/api/comics/
+Content-Type: application/json
+
+{
+    "title": "Yolo",
+    "chapter": "1",
+    "page": "1"
+}
+
+###
+
+# 2. Get Comic by Name
+GET http://localhost:3000/api/comics/?q=Yolo
+
+###
+
+# 3. Get all comics
+
+GET http://localhost:3000/api/comics
+
+###
+
+# 4. Update a comic
+
+PUT http://localhost:3000/api/comics/1
+Content-Type: application/json
+
+{
+    "title": "Yolo2",
+    "chapter": 2,
+    "page": 1
+}
+
+###
+
+# 5. Delete a comic by id
+DELETE http://localhost:3000/api/comics/3
