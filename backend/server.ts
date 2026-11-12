@@ -47,7 +47,6 @@ async function initDB() {
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
         `;
-        console.log(rawSQL);
         await query(rawSQL);
     } catch (error){
         console.error("Init DB", error);

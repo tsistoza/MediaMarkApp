@@ -5,11 +5,10 @@ export const getComics = async (req: Request, res: Response) => {
     try {
         const rawSQL = `--sql
             SELECT * FROM comics;
-
         `;
 
         const data = await query(rawSQL);
-        console.log("Fetched Products");
+        console.log("Fetched comics");
         res.status(200).json({ success: true, data: data.rows });
     } catch (error) {
         console.error("Error fetching comis: ", error);
@@ -18,12 +17,13 @@ export const getComics = async (req: Request, res: Response) => {
 };
 
 export const getComicByName = async (req: Request, res: Response) => {
-    const { name } = req.params;
+    const { title } = req.params;
 
     try {
         const rawSQL = `--sql
             SELECT * FROM comics
-            WHERE name LIKE ${name}
+            WHERE title LIKE '%${title}%'
+            ORDER BY created_at;
         `;
 
         const data = await query(rawSQL);
@@ -59,10 +59,10 @@ export const updateComic = async (req: Request, res: Response) => {
     try {
         const rawSQL = `--sql
             UPDATE comics
-            SET title = ${title},
-                chapter = ${chapter},
-                page = ${page}
-            WHERE id = ${id};
+            SET title = '${title}',
+                chapter = '${chapter}',
+                page = '${page}'
+            WHERE id = ${id}
             RETURNING *;
         `;
         const data = await query(rawSQL);

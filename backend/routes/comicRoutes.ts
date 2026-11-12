@@ -3,7 +3,7 @@ import { getComicByName, getComics, addComic, deleteComic, updateComic } from ".
 const router = Router();
 
 router.get("/", getComics);
-router.get("/q=:name", getComicByName);
+router.get("/q=:title", getComicByName);
 router.put("/:id", updateComic);
 router.post("/", addComic);
 router.delete("/:id", deleteComic);
