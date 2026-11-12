@@ -5,7 +5,7 @@ POST http://localhost:3000/api/comics/
 Content-Type: application/json
 
 {
-    "title": "Yolo McSwaggins",
+    "title": "TGHKA",
     "chapter": "1",
     "page": "1"
 }
@@ -13,7 +13,7 @@ Content-Type: application/json
 ###
 
 # 2. Get Comic by Name
-GET http://localhost:3000/api/comics/q=Yolo
+GET http://localhost:3000/api/comics?q=Yolo
 
 ###
 
@@ -37,4 +37,29 @@ Content-Type: application/json
 ###
 
 # 5. Delete a comic by id
-DELETE http://localhost:3000/api/comics/4
+DELETE http://localhost:3000/api/comics/1
+
+###
+
+# Novel Endpoints
+
+# 1. Create a new novel
+POST http://localhost:3000/api/novels
+Content-Type: application/json 
+
+{
+    "title": "TGWOK",
+    "chapter": "1",
+    "page": "32"
+}
+
+###
+
+# 2. Get Novels
+GET http://localhost:3000/api/novels
+
+###
+
+# 3. Get Novels By Name
+GET http://localhost:3000/api/novels/q=TGWOK
+
