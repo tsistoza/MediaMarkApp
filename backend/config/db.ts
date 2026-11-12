@@ -8,6 +8,6 @@ const pool = new Pool({
     port: 5432,
 });
 
-const query = async (text: string) => await pool.query(text);
+const query = async (text: string, values: string[] | undefined) => await pool.query(text, values);
 
 export default query;

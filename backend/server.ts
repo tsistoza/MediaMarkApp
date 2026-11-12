@@ -4,6 +4,7 @@ import morgan from "morgan";
 import cors from "cors";
 import dotenv from "dotenv";
 import comicRoutes from "./routes/comicRoutes.ts";
+//import novelRoutes from "./routes/novelRoutes.ts";
 import query from "./config/db.ts";
 
 dotenv.config();
@@ -17,7 +18,7 @@ app.use(helmet());
 app.use(morgan('dev'));
 
 // Endpoints
-//app.use("/api/novels");
+//app.use("/api/novels", novelRoutes);
 //app.use("/api/videos");
 app.use("/api/comics", comicRoutes);
 
@@ -47,7 +48,7 @@ async function initDB() {
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
         `;
-        await query(rawSQL);
+        await query(rawSQL, []);
     } catch (error){
         console.error("Init DB", error);
     }
