@@ -1,0 +1,39 @@
+# Video API Endpoints
+
+# 1. Add a video
+POST http://localhost:3000/api/videos
+Content-Type: application/json
+
+{
+    "title": "Sample Video",
+    "duration": "00:05:00",
+    "link": "https://example.com/video"
+}
+
+###
+
+# 2. Get all videos
+GET http://localhost:3000/api/videos
+
+###
+
+# 3. Get a video by title
+GET http://localhost:3000/api/videos?q=Sample%20Video
+
+###
+
+# 4. Update a video
+PUT http://localhost:3000/api/videos/1
+Content-Type: application/json
+
+{
+    "title": "Updated Video",
+    "duration": "00:10:00",
+    "link": "https://example.com/updated-video"
+}
+
+### 
+
+# 5. Delete a video
+DELETE http://localhost:3000/api/videos/1
+

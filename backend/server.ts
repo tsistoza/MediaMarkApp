@@ -5,6 +5,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import comicRoutes from "./routes/comicRoutes.ts";
 import novelRoutes from "./routes/novelRoutes.ts";
+import videoRoutes from "./routes/videoRoutes.ts";
 import query from "./config/db.ts";
 
 dotenv.config();
@@ -19,7 +20,7 @@ app.use(morgan('dev'));
 
 // Endpoints
 app.use("/api/novels", novelRoutes);
-//app.use("/api/videos");
+app.use("/api/videos", videoRoutes);
 app.use("/api/comics", comicRoutes);
 
 async function initDB() {
@@ -37,6 +38,7 @@ async function initDB() {
                 id SERIAL PRIMARY KEY,
                 title VARCHAR(255) NOT NULL,
                 duration INTERVAL DEFAULT '00:00:00',
+                link VARCHAR(255) NOT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
 
