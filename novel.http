@@ -1,0 +1,38 @@
+# Novel Endpoints
+
+# 1. Create a new novel
+POST http://localhost:3000/api/novels
+Content-Type: application/json 
+
+{
+    "title": "TGWOK",
+    "chapter": "1",
+    "page": "32"
+}
+
+###
+
+# 2. Get Novels
+GET http://localhost:3000/api/novels
+
+###
+
+# 3. Get Novels by Title
+GET http://localhost:3000/api/novels?q=Yolo
+
+###
+
+# 4. Update novel
+PUT http://localhost:3000/api/novels/1
+Content-Type: application/json
+
+{
+    "title": "RENAMED",
+    "chapter": 2,
+    "page": 3
+}
+
+###
+
+# 5. Delete novel by id
+DELETE http://localhost:3000/api/novels/1

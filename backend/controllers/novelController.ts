@@ -13,7 +13,8 @@ export const getNovels = async (req: Request, res: Response) => {
         `;
     } else {
         rawSQL = `--sql
-            SELECT * FROM novels`;
+            SELECT * FROM novels;
+        `;
     }
 
     try {
@@ -31,7 +32,7 @@ export const addNovel = async (req: Request, res: Response) => {
     const { title, chapter, page } = req.body;
     try {
         const rawSQL = `--sql
-            INSERT into novels
+            INSERT into novels ( title, chapter, page )
             VALUES ($1, $2, $3)
             RETURNING *;
         `;
@@ -79,4 +80,3 @@ export const deleteNovelById = async (req: Request, res: Response) => {
         res.status(500).json({ success: false, error: error });
     }
 };
-
