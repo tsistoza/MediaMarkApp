@@ -37,7 +37,7 @@ export const addVideo = async (req: Request, res: Response) => {
             VALUES ($1, $2, $3)
             RETURNING *;
         `;
-        const data = await query(rawSQL, [ `${title}`, `${duration}`, `${link}` ]);
+        const data = await query(rawSQL, [ `${title}`, `${duration}`, `${link ? link : "#"}` ]);
         res.status(201).json({ success: true, data: data.rows });
     } catch (error) {
         console.error("Error in addVideo function:", error);
@@ -55,7 +55,7 @@ export const updateVideo = async (req: Request, res: Response) => {
             WHERE id = $4
             RETURNING *;
         `;
-        const data = await query(rawSQL, [ `${title}`, `${duration}`, `${link}`, `${id}` ]);
+        const data = await query(rawSQL, [ `${title}`, `${duration}`, `${link ? link : "#"}`, `${id}` ]);
         res.status(200).json({ success: true, data: data.rows[0] });
     } catch (error) {
         console.error("Error in updateVideo function:", error);

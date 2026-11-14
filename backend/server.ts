@@ -31,6 +31,7 @@ async function initDB() {
                 title VARCHAR(255) NOT NULL,
                 chapter SMALLINT DEFAULT 0,
                 page SMALLINT DEFAULT 0,
+                link VARCHAR(255),
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
 
@@ -46,7 +47,7 @@ async function initDB() {
                 id SERIAL PRIMARY KEY,
                 title VARCHAR(255) NOT NULL,
                 chapter SMALLINT DEFAULT 0,
-                page SMALLINT DEFAULT 0,
+                link VARCHAR(255),
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
         `;

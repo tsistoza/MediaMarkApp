@@ -48,16 +48,16 @@ export const getComicByName = async (req: Request, res: Response) => {
 
 export const addComic = async (req: Request, res: Response) => {
     console.log("yo");
-    const { title, chapter, page } = req.body;
+    const { title, chapter, link } = req.body;
 
     try { 
         const rawSQL = `--sql
-            INSERT into comics ( title, chapter, page )
+            INSERT into comics ( title, chapter, link )
             VALUES ($1, $2, $3)
             RETURNING *;
         `;
 
-        const data = await query(rawSQL, [`${title}`, `${chapter}`, `${page}`]);
+        const data = await query(rawSQL, [`${title}`, `${chapter}`, `${link}`]);
         res.status(201).json({ success: true, data: data.rows[0].id });
     } catch (error) {
         console.error("Error in addComic: ", error);
@@ -67,17 +67,17 @@ export const addComic = async (req: Request, res: Response) => {
 
 export const updateComic = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { title, chapter, page } = req.body;
+    const { title, chapter, link } = req.body;
     try {
         const rawSQL = `--sql
             UPDATE comics
             SET title = $1,
                 chapter = $2,
-                page = $3
+                link = $3
             WHERE id = $4
             RETURNING *;
         `;
-        const data = await query(rawSQL, [ `${title}`, `${chapter}`, `${page}`, `${id}` ]);
+        const data = await query(rawSQL, [ `${title}`, `${chapter}`, `${link}`, `${id}` ]);
         res.status(200).json({ success: true, updated: data.rowCount})
     } catch (error) {
         console.error("Error in updateComic: ", error);
