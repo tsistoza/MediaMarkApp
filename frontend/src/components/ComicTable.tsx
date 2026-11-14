@@ -1,7 +1,8 @@
 import { Pencil } from 'lucide-react';
 import { Trash } from 'lucide-react';
+import type { Comic } from '../store/mediaStore.ts';
 
-function ComicTable() {
+function ComicTable({ comics }: { comics: Comic[] }) {
     return (
         <div className="overflow-x-scroll">
             <table className="table table-zebra">
@@ -15,30 +16,20 @@ function ComicTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className="hover:bg-gray-500">
-                        <td>1</td>
-                        <td>Example Comic</td>
-                        <td><a href="#" className="hover:text-blue-300">1</a></td>
-                        <td>2024-06-01</td>
-                        <td>
-                            <div className="join">
-                                <button className="btn btn-ghost shadow-xl"><Pencil className="size-4"/></button>
-                                <button className="btn btn-ghost shadow-xl"><Trash className="size-4"/></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr className="hover:bg-gray-500">
-                        <td>2</td>
-                        <td>Another Comic</td>
-                        <td><a href="#" className="hover:text-blue-300">2</a></td>
-                        <td>2024-06-02</td>
-                        <td>
-                            <div className="join">
-                                <button className="btn btn-ghost shadow-xl"><Pencil className="size-4"/></button>
-                                <button className="btn btn-ghost shadow-xl"><Trash className="size-4"/></button>
-                            </div>
-                        </td>
-                    </tr>
+                    {comics.map((comic) => (
+                        <tr key={comic.id} className="hover:bg-gray-500">
+                            <td>{comic.id}</td>
+                            <td>{comic.title}</td>
+                            <td><a href={comic.link} className="hover:text-blue-300">{comic.chapter}</a></td>
+                            <td>{comic.createdAt.toLocaleDateString()}</td>
+                            <td>
+                                <div className="join">
+                                    <button className="btn btn-ghost shadow-xl"><Pencil className="size-4"/></button>
+                                    <button className="btn btn-ghost shadow-xl"><Trash className="size-4"/></button>
+                                </div>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </div>

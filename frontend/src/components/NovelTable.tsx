@@ -1,7 +1,8 @@
 import { Pencil } from 'lucide-react';
 import { Trash } from 'lucide-react';
+import type { Novel } from '../store/mediaStore.ts';
 
-function NovelTable() {
+function NovelTable({ novels }: { novels: Novel[]}) {
     return (
         <div className="overflow-x-scroll">
             <table className="table table-zebra">
@@ -16,32 +17,21 @@ function NovelTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className="hover:bg-gray-500">
-                        <td>1</td>
-                        <td>Example Novel</td>
-                        <td><a href="#" className="hover:text-blue-300">1</a></td>
-                        <td><a href="#" className="hover:text-blue-300">10</a></td>
-                        <td>2024-06-01</td>
-                        <td>
-                            <div className="join">
-                                <button className="btn btn-ghost shadow-xl"><Pencil className="size-4"/></button>
-                                <button className="btn btn-ghost shadow-xl"><Trash className="size-4"/></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr className="hover:bg-gray-500">
-                        <td>2</td>
-                        <td>Another Novel</td>
-                        <td><a href="#" className="hover:text-blue-300">2</a></td>
-                        <td><a href="#" className="hover:text-blue-300">20</a></td>
-                        <td>2024-06-02</td>
-                        <td>
-                            <div className="join">
-                                <button className="btn btn-ghost shadow-xl"><Pencil className="size-4"/></button>
-                                <button className="btn btn-ghost shadow-xl"><Trash className="size-4"/></button>
-                            </div>
-                        </td>
-                    </tr>
+                    {novels.map((novel) => (
+                        <tr key={novel.id} className="hover:bg-gray-500">
+                            <td>{novel.id}</td>
+                            <td>{novel.title}</td>
+                            <td><a href={novel.link} className="hover:text-blue-300">{novel.chapter}</a></td>
+                            <td><a href={novel.link} className="hover:text-blue-300">{novel.page}</a></td>
+                            <td>{novel.createdAt.toLocaleDateString()}</td>
+                            <td>
+                                <div className="join">
+                                    <button className="btn btn-ghost shadow-xl"><Pencil className="size-4"/></button>
+                                    <button className="btn btn-ghost shadow-xl"><Trash className="size-4"/></button>
+                                </div>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </div>

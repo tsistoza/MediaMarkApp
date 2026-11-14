@@ -1,7 +1,13 @@
 import { Pencil } from 'lucide-react';
 import { Trash } from 'lucide-react';
+import type { Video } from '../store/mediaStore.ts';
 
-function VideoTable() {
+function VideoTable({ videos }: { videos: Video[]}) {
+    const formatDuration = (duration: Video['duration']) => {
+        const { hours, minutes, seconds } = duration;
+        return `${hours ? hours : '00'}:${minutes ? minutes : '00'}:${seconds ? seconds : '00'}`;
+    };
+
     return (
         <div className="overflow-x-scroll">
             <table className="table table-zebra">
@@ -15,30 +21,20 @@ function VideoTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className="hover:bg-gray-500">
-                        <td>1</td>
-                        <td>Example Video</td>
-                        <td><a href="#" className="hover:text-blue-300">00:01:00</a></td>
-                        <td>2024-06-01</td>
-                        <td>
-                            <div className="join">
-                                <button className="btn btn-ghost shadow-xl"><Pencil className="size-4"/></button>
-                                <button className="btn btn-ghost shadow-xl"><Trash className="size-4"/></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr className="hover:bg-gray-500">
-                        <td>2</td>
-                        <td>Another Video</td>
-                        <td><a href="#" className="hover:text-blue-300">00:02:00</a></td>
-                        <td>2024-06-02</td>
-                        <td>
-                            <div className="join">
-                                <button className="btn btn-ghost shadow-xl"><Pencil className="size-4"/></button>
-                                <button className="btn btn-ghost shadow-xl"><Trash className="size-4"/></button>
-                            </div>
-                        </td>
-                    </tr>
+                    {videos.map((video) => (
+                        <tr key={video.id} className="hover:bg-gray-500">
+                            <td>{video.id}</td>
+                            <td>{video.title}</td>
+                            <td><a href={video.link} className="hover:text-blue-300">{formatDuration(video.duration)}</a></td>
+                            <td>{video.createdAt.toLocaleDateString()}</td>
+                            <td>
+                                <div className="join">
+                                    <button className="btn btn-ghost shadow-xl"><Pencil className="size-4"/></button>
+                                    <button className="btn btn-ghost shadow-xl"><Trash className="size-4"/></button>
+                                </div>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </div>

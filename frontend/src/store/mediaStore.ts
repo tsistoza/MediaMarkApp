@@ -15,11 +15,13 @@ interface MediaStore {
     currentMedia: string;
     setCurrentMedia: (media: string) => void;
     getMedia: (type: string) => Promise<void>;
-    getMediaByTitle: (type: string, title: string) => Promise<void>;
-    addMedia: (type: string, media: any) => Promise<void>;
+    //getMediaByTitle: (type: string, title: string) => Promise<void>;
+    //addMedia: (type: string, media: any) => Promise<void>;
+    //updateMedia: (type: string, id: number) => Promise<void>;
+    //deleteMedia: (type: string, id: number) => Promise<void>;
 };
 
-interface Comic {
+export interface Comic {
     id: number;
     title: string;
     chapter: number;
@@ -27,25 +29,46 @@ interface Comic {
     createdAt: Date;
 };
 
-interface Novel {
+export interface Novel {
     id: number;
     title: string;
+    chapter: number;
+    page: number;
     link: string;
     createdAt: Date;
 };
 
-interface Video {
+export interface Video {
     id: number;
     title: string;
     link: string;
-    duration: number;
+    duration: {
+        hours: number | undefined;
+        minutes: number | undefined;
+        seconds: number | undefined;
+    };
     createdAt: Date;
 };
 
 export const useMediaStore = create<MediaStore>((set, get) => ({
     data: {
-        "Novels": [],
-        "Comics": [],
+        "Novels": [
+            {
+                id: 1,
+                title: "Test Novel",
+                chapter: 1,
+                page: 1,
+                link: "",
+                createdAt: new Date(),
+            }
+        ],
+        "Comics": [{
+            id: 1,
+            title: "Test Comic",
+            chapter: 1,
+            link: "",
+            createdAt: new Date(),
+        }],
         "Videos": [],
     },
     loading: {
@@ -66,7 +89,7 @@ export const useMediaStore = create<MediaStore>((set, get) => ({
             set({ loading: { ...get().loading, [type]: false }});
         }
     },
-    getMediaByTitle: async (type: string, title: string) => {
+    /*getMediaByTitle: async (type: string, title: string) => {
         set({ loading: { ...get().loading, [type]: true }});
         try {
             const response = await mediaService.getByTitle(type, title);
@@ -93,4 +116,5 @@ export const useMediaStore = create<MediaStore>((set, get) => ({
             console.error("Error updating media:", error);
         }
     }
+    */
 }));
