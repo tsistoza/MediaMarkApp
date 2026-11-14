@@ -12,6 +12,19 @@ Content-Type: application/json
 
 ###
 
+# 1.1 Create a new comic with link
+POST http://localhost:3000/api/comics/
+Content-Type: application/json
+
+{
+    "title": "TGHKA",
+    "chapter": "1",
+    "page": "1",
+    "link": "https://example.com"
+}
+
+###
+
 # 2. Get Comic by Name
 GET http://localhost:3000/api/comics?q=Yolo
 
@@ -32,6 +45,20 @@ Content-Type: application/json
     "title": "Yolo2",
     "chapter": 2,
     "page": 1
+}
+
+###
+
+# 4.1 Update a comic with link
+
+PUT http://localhost:3000/api/comics/1
+Content-Type: application/json
+
+{
+    "title": "Yolo2",
+    "chapter": 2,
+    "page": 1,
+    "link": "https://example.com"
 }
 
 ###

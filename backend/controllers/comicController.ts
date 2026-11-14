@@ -47,7 +47,6 @@ export const getComicByName = async (req: Request, res: Response) => {
 };
 
 export const addComic = async (req: Request, res: Response) => {
-    console.log("yo");
     const { title, chapter, link } = req.body;
 
     try { 
@@ -57,7 +56,7 @@ export const addComic = async (req: Request, res: Response) => {
             RETURNING *;
         `;
 
-        const data = await query(rawSQL, [`${title}`, `${chapter}`, `${link}`]);
+        const data = await query(rawSQL, [`${title}`, `${chapter}`, `${link ? link : "#"}`]);
         res.status(201).json({ success: true, data: data.rows[0].id });
     } catch (error) {
         console.error("Error in addComic: ", error);
