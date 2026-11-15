@@ -1,6 +1,9 @@
 import axios from "axios";
+//import dotenv from "dotenv";
 
-const BASE_URL = "http://localhost:3000";
+//dotenv.config();
+
+const BASE_URL = 'http://localhost:3000';
 
 const map = {
     "Novels": "novels",

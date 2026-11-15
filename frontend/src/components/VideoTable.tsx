@@ -5,12 +5,15 @@ import type { Video } from '../store/mediaStore.ts';
 function VideoTable({ videos }: { videos: Video[]}) {
     const formatDuration = (duration: Video['duration']) => {
         const { hours, minutes, seconds } = duration;
-        return `${hours ? hours : '00'}:${minutes ? minutes : '00'}:${seconds ? seconds : '00'}`;
+        const hoursString = hours ? hours.toString().padStart(2, '0') : '00';
+        const minutesString = minutes ? minutes.toString().padStart(2, '0') : '00';
+        const secondsString = seconds ? seconds.toString().padStart(2, '0') : '00';
+        return `${hoursString}:${minutesString}:${secondsString}`;
     };
 
     return (
-        <div className="overflow-x-scroll">
-            <table className="table table-zebra">
+        <div className="overflow-x-scroll flex-1">
+            <table className="table table-zebra text-base">
                 <thead>
                     <tr className="hover:bg-gray-500">
                         <th className="w-1/12">ID</th>

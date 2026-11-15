@@ -3,9 +3,10 @@ import { Trash } from 'lucide-react';
 import type { Novel } from '../store/mediaStore.ts';
 
 function NovelTable({ novels }: { novels: Novel[]}) {
+    console.log(novels);
     return (
-        <div className="overflow-x-scroll">
-            <table className="table table-zebra">
+        <div className="overflow-x-scroll flex-1">
+            <table className="table table-zebra text-base">
                 <thead>
                     <tr className="hover:bg-gray-500">
                         <th className="w-1/12">ID</th>

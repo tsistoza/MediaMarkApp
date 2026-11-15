@@ -4,8 +4,8 @@ import type { Comic } from '../store/mediaStore.ts';
 
 function ComicTable({ comics }: { comics: Comic[] }) {
     return (
-        <div className="overflow-x-scroll">
-            <table className="table table-zebra">
+        <div className="overflow-x-scroll flex-1">
+            <table className="table table-zebra text-base">
                 <thead>
                     <tr className="hover:bg-gray-500">
                         <th className="w-1/12">ID</th>

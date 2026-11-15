@@ -6,7 +6,7 @@ Content-Type: application/json
 
 {
     "title": "Sample Video",
-    "duration": "00:05:00",
+    "duration": "0",
     "link": "https://example.com/video"
 }
 
@@ -28,7 +28,7 @@ Content-Type: application/json
 
 {
     "title": "Updated Video",
-    "duration": "00:10:00",
+    "duration": "1000",
     "link": "https://example.com/updated-video"
 }
 
