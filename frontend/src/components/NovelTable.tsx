@@ -3,7 +3,6 @@ import { Trash } from 'lucide-react';
 import type { Novel } from '../store/mediaStore.ts';
 
 function NovelTable({ novels }: { novels: Novel[]}) {
-    console.log(novels);
     return (
         <div className="overflow-x-scroll flex-1">
             <table className="table table-zebra text-base">

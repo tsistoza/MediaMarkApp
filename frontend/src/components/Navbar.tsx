@@ -1,8 +1,10 @@
 import { Menu } from 'lucide-react';
 import { useMediaStore } from '../store/mediaStore.ts';
+import { useModalStore } from '../store/modalStore.ts';
 
 function Navbar() {
     const { currentMedia, setCurrentMedia } = useMediaStore();
+    const { openModal } = useModalStore();
 
     const handleToggle = (event: React.ChangeEvent): void => {
         const id = event.target.id;
@@ -19,11 +21,16 @@ function Navbar() {
         <div className="navbar bg-slate-950 shadow-sm">
             { /* LEFT END */ }
             <div className="flex-1 outline-2 outline-dotted">
-                <a className="btn btn-ghost text-xl">MediaMark</a>
+                <a className="btn btn-ghost btn-lg text-2xl outline-dotted outline-2 outline-blue-500">MediaMark</a>
+                <button
+                       className="btn btn-ghost btn-sm outline-dotted outline-2 outline-green-500"
+                       onClick={() => openModal(currentMedia)}>
+                    Add {currentMedia}
+                </button>
             </div>
 
             { /* RIGHT END */ }
-            <div className="flex outline-2 outline-dotted outline-indigo-500">
+            <div className="flex-none outline-2 outline-dotted outline-indigo-500">
                 { /* DROPDOWN */ }
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost">

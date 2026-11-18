@@ -18,6 +18,7 @@ const mediaService = {
             return data;
         } catch (error) {
             console.error(error);
+            throw new Error(`Error fetching ${type}: ${error}`);
         }
     },
 
@@ -27,6 +28,7 @@ const mediaService = {
             return data;
         } catch (error) {
             console.error(error);
+            throw new Error(`Error fetching ${type} by title=${title}: ${error}`);
         }
     },
 
@@ -36,6 +38,7 @@ const mediaService = {
             return data;
         } catch (error) {
             console.error(error);
+            throw new Error(`Error adding ${type}: ${error}`);
         }
     },
 
@@ -45,6 +48,7 @@ const mediaService = {
             return data;
         } catch (error) {
             console.error(error);
+            throw new Error(`Error updating ${type}: ${error}`);
         }
     },
 
@@ -54,6 +58,7 @@ const mediaService = {
             return data;
         } catch (error) {
             console.error(error);
+            throw new Error(`Error deleting ${type} with id=${id}: ${error}`);
         }
     }
 }

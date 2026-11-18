@@ -6,6 +6,7 @@ import VideoTable from '../components/VideoTable.tsx';
 import ComicTable from '../components/ComicTable.tsx';
 
 function HomePage() {
+    console.log("Rendering");
     const { currentMedia, data, loading, getMedia } = useMediaStore();
     
     useEffect(() => {
@@ -26,7 +27,7 @@ function HomePage() {
                 <label className="input flex-1">
                     <span><Search className="size-5"/></span>
                     <input type="text" placeholder="Search By Title" className="input" />
-                    <button className="btn btn-ghos btn-sm" onClick={() => console.log("Do nothing")}>Search</button>
+                    <button className="btn btn-ghost btn-sm" onClick={() => console.log("Do nothing")}>Search</button>
                 </label>
             </div>
 
