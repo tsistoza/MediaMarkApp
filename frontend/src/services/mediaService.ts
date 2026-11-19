@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { type AxiosResponse } from "axios";
 //import dotenv from "dotenv";
 
 //dotenv.config();
@@ -32,9 +32,29 @@ const mediaService = {
         }
     },
 
-    addMedia: async (type: string, media: any) => {
+    addMedia: async (type: string, formData: any) => {
+        const novelData = {
+            title: formData.title,
+            chapter: formData.chapter,
+            page: formData.page,
+            link: formData.link,
+        };
+        const comicData = {
+            title: formData.title,
+            page: formData.page,
+            link: formData.link,
+        };
+        const videoData = {
+            title: formData.title,
+            duration: formData.duration,
+            link: formData.link,
+        };
+
         try {
-            const data = await axios.post(`${BASE_URL}/api/${map[type as keyof typeof map]}`, media);
+            let data: AxiosResponse<any>;
+            if (type === "Novels") data = await axios.post(`${BASE_URL}/api/${map[type as keyof typeof map]}`, novelData);
+            else if (type === "Comics") data = await axios.post(`${BASE_URL}/api/${map[type as keyof typeof map]}`, comicData);
+            else data = await axios.post(`${BASE_URL}/api/${map[type as keyof typeof map]}`, videoData);
             return data;
         } catch (error) {
             console.error(error);

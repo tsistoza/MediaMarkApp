@@ -1,9 +1,13 @@
 import { Menu } from 'lucide-react';
 import { useMediaStore } from '../store/mediaStore.ts';
 import { useModalStore } from '../store/modalStore.ts';
+import { useShallow } from 'zustand/react/shallow';
 
 function Navbar() {
-    const { currentMedia, setCurrentMedia } = useMediaStore();
+    const { currentMedia, setCurrentMedia } = useMediaStore(useShallow((state) => ({
+        currentMedia: state.currentMedia,
+        setCurrentMedia: state.setCurrentMedia,
+    })));
     const { openModal } = useModalStore();
 
     const handleToggle = (event: React.ChangeEvent): void => {

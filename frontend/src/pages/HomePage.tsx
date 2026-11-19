@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { useMediaStore } from '../store/mediaStore.ts';
 import { ArrowRight, Search } from 'lucide-react';
 import NovelTable from '../components/NovelTable.tsx';
@@ -6,8 +7,12 @@ import VideoTable from '../components/VideoTable.tsx';
 import ComicTable from '../components/ComicTable.tsx';
 
 function HomePage() {
-    console.log("Rendering");
-    const { currentMedia, data, loading, getMedia } = useMediaStore();
+    const { currentMedia, data, loading, getMedia } = useMediaStore(useShallow((state) =>({
+        currentMedia: state.currentMedia,
+        data: state.data,
+        loading: state.loading,
+        getMedia: state.getMedia,
+    })));
     
     useEffect(() => {
         getMedia(currentMedia);
