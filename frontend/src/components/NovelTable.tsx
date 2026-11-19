@@ -1,8 +1,30 @@
 import { Pencil } from 'lucide-react';
 import { Trash } from 'lucide-react';
-import type { Novel } from '../store/mediaStore.ts';
+import { useMediaStore, type Novel } from '../store/mediaStore.ts';
+import { useShallow } from 'zustand/react/shallow';
+import { useModalStore } from '../store/modalStore.ts';
 
 function NovelTable({ novels }: { novels: Novel[]}) {
+    const { setFormData, deleteMedia } = useMediaStore(useShallow((state) => ({
+        setFormData: state.setFormData,
+        deleteMedia: state.deleteMedia
+    })));
+    const { openModal } = useModalStore();
+    const handleEdit = (novel: Novel) => {
+        setFormData({
+            id: novel.id,
+            title: novel.title,
+            chapter: novel.chapter,
+            page: novel.page,
+            duration: {
+                hours: 0,
+                minutes: 0,
+                seconds: 0
+            },
+            link: novel.link
+        });
+        openModal("Novels");
+    }
     return (
         <div className="overflow-x-scroll flex-1">
             <table className="table table-zebra text-base">
@@ -26,8 +48,8 @@ function NovelTable({ novels }: { novels: Novel[]}) {
                             <td>{new Date(novel.created_at).toLocaleDateString()}</td>
                             <td>
                                 <div className="join">
-                                    <button className="btn btn-ghost shadow-xl"><Pencil className="size-4"/></button>
-                                    <button className="btn btn-ghost shadow-xl"><Trash className="size-4"/></button>
+                                    <button className="btn btn-ghost shadow-xl" onClick={() => handleEdit(novel)}><Pencil className="size-4"/></button>
+                                    <button className="btn btn-ghost shadow-xl" onClick={() => deleteMedia(novel.id)}><Trash className="size-4"/></button>
                                 </div>
                             </td>
                         </tr>

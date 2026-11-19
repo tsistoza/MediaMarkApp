@@ -7,7 +7,7 @@ export interface Comic {
     title: string;
     chapter: number;
     link: string;
-    created_at: Date;
+    created_at: string;
 };
 
 export interface Novel {
@@ -16,7 +16,7 @@ export interface Novel {
     chapter: number;
     page: number;
     link: string;
-    created_at: Date;
+    created_at: string;
 };
 
 export interface Video {
@@ -28,8 +28,21 @@ export interface Video {
         minutes?: number | undefined;
         seconds?: number | undefined;
     };
-    created_at: Date;
+    created_at: string;
 };
+
+export interface formDataRaw {
+    id?: number;
+    title?: string;
+    chapter: number;
+    page: number;
+    duration: {
+        hours: number;
+        minutes: number;
+        seconds: number;
+    };
+    link: string;
+}
 
 interface MediaStore {
     data: {
@@ -42,21 +55,15 @@ interface MediaStore {
         "Comics": boolean;
         "Videos": boolean;
     };
-    formData: {
-        title?: string;
-        chapter: number;
-        page: number;
-        duration: number;
-        link: string;
-    };
+    formData: formDataRaw;
     currentMedia: string;
     setCurrentMedia: (media: string) => void;
     getMedia: (type: string) => Promise<void>;
     getMediaByTitle: (type: string, title: string) => Promise<void>;
     addMedia: (type: string, media: any) => Promise<void>;
-    setFormData: (formData: any) => void;
-    //updateMedia: (type: string, id: number) => Promise<void>;
-    //deleteMedia: (type: string, id: number) => Promise<void>;
+    setFormData: (formDataStrs: formDataRaw) => void;
+    updateMedia: (formData: formDataRaw) => Promise<void>;
+    deleteMedia: (id: number) => Promise<void>;
 };
 
 export const useMediaStore = create<MediaStore>((set, get) => ({
@@ -74,7 +81,11 @@ export const useMediaStore = create<MediaStore>((set, get) => ({
         title: undefined,
         chapter: 1,
         page: 1,
-        duration: 0,
+        duration: {
+            hours: 0,
+            minutes: 0,
+            seconds: 0
+        },
         link: "#",
     },
     currentMedia: "Novels",
@@ -100,26 +111,36 @@ export const useMediaStore = create<MediaStore>((set, get) => ({
         }
     },
     setFormData: (formData) => {
-        set({ formData: { ...formData } });
+        set({ formData });
     },
     addMedia: async (type: string, media: any) => {
         try {
             await mediaService.addMedia(type, media);
             await get().getMedia(type);
-            set({ formData: { title: undefined, chapter: 1, page: 1, duration: 0, link: '#' } });
-            useModalStore.getState().closeModal();
         } catch (error) {
             console.error("Error adding media:", error);
-            set({ formData: { title: undefined, chapter: 1, page: 1, duration: 0, link: '#' } });
-            useModalStore.getState().closeModal();
         }
+        set({ formData: { id: undefined, title: undefined, chapter: 1, page: 1, duration: { hours: 0, minutes: 0, seconds: 0 }, link: '#' } });
+        useModalStore.getState().closeModal();
     },
-    updateMedia: async (type: string, id: number) => {
+    updateMedia: async (formData: formDataRaw) => {
+        const type = get().currentMedia;
         try {
-            await mediaService.updateMedia(type, id);
+            await mediaService.updateMedia(type, formData);
             await get().getMedia(type);
         } catch (error) {
             console.error("Error updating media:", error);
         }
+        set({ formData: { id: undefined, title: undefined, chapter: 1, page: 1, duration: { hours: 0, minutes: 0, seconds: 0 }, link: '#' } });
+        useModalStore.getState().closeModal();
     },
+    deleteMedia: async (id: number) => {
+        const type = get().currentMedia;
+        try {
+            await mediaService.deleteMedia(type, id);
+            await get().getMedia(type);
+        } catch (error) {
+            console.error("Error delete media");
+        }
+    }
 }));
