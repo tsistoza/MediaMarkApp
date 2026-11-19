@@ -5,9 +5,11 @@ import { useModalStore } from '../store/modalStore.ts';
 
 function Modal() {
     const modalRef = React.useRef<HTMLDialogElement>(null);
-    const { formData, setFormData } = useMediaStore(useShallow((state) => ({
+    const { formData, setFormData, addMedia, loading } = useMediaStore(useShallow((state) => ({
         formData: state.formData,
         setFormData: state.setFormData,
+        addMedia: state.addMedia,
+        loading: state.loading,
     })));
     const { isOpen, currentMedia, closeModal } = useModalStore();
 
@@ -67,12 +69,12 @@ function Modal() {
                         <>
                             <div className="join grid grid-flow-col grid-cols-2 gap-4 p-2">
                                 <div className="col-span-1">
-                                    <label className="label pr-2">Page</label>
+                                    <label className="label pr-2">Chapter</label>
                                     <input type="number" 
-                                            placeholder="Enter Page"
+                                            placeholder="Enter Chapter"
                                             className="input input-bordered w-1/3"
                                             min="1"
-                                            value={formData.page} 
+                                            value={formData.chapter} 
                                             onChange={(e) => setFormData({ formData: { ...formData, page: e.target.value } })} />
                                 </div>
                             </div>
@@ -103,9 +105,9 @@ function Modal() {
                             onChange={(e) => setFormData({ ...formData, link: e.target.value })} />
 
                     <button className="btn btn-primary" 
-                            type="submit" 
-                            disabled={!formData.title}>
-                        Add
+                            disabled={!formData.title || loading[currentMedia as keyof typeof loading]}
+                            onClick={() => addMedia(currentMedia, formData)}>
+                        {loading[currentMedia as keyof typeof loading] ? "Adding..." : `Add ${currentMedia}`}
                     </button>
                     <p className="label">Click outside to close</p>
                 </fieldset>

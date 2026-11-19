@@ -1,12 +1,13 @@
 import { create } from "zustand";
 import mediaService from "../services/mediaService.ts";
+import { useModalStore } from "./modalStore.ts";
 
 export interface Comic {
     id: number;
     title: string;
     chapter: number;
     link: string;
-    createdAt: Date;
+    created_at: Date;
 };
 
 export interface Novel {
@@ -15,7 +16,7 @@ export interface Novel {
     chapter: number;
     page: number;
     link: string;
-    createdAt: Date;
+    created_at: Date;
 };
 
 export interface Video {
@@ -27,7 +28,7 @@ export interface Video {
         minutes?: number | undefined;
         seconds?: number | undefined;
     };
-    createdAt: Date;
+    created_at: Date;
 };
 
 interface MediaStore {
@@ -105,8 +106,12 @@ export const useMediaStore = create<MediaStore>((set, get) => ({
         try {
             await mediaService.addMedia(type, media);
             await get().getMedia(type);
+            set({ formData: { title: undefined, chapter: 1, page: 1, duration: 0, link: '#' } });
+            useModalStore.getState().closeModal();
         } catch (error) {
             console.error("Error adding media:", error);
+            set({ formData: { title: undefined, chapter: 1, page: 1, duration: 0, link: '#' } });
+            useModalStore.getState().closeModal();
         }
     },
     updateMedia: async (type: string, id: number) => {

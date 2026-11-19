@@ -23,7 +23,7 @@ function NovelTable({ novels }: { novels: Novel[]}) {
                             <td>{novel.title}</td>
                             <td><a href={novel.link} className="hover:text-blue-300">{novel.chapter}</a></td>
                             <td><a href={novel.link} className="hover:text-blue-300">{novel.page}</a></td>
-                            <td>{novel.createdAt.toLocaleDateString()}</td>
+                            <td>{new Date(novel.created_at).toLocaleDateString()}</td>
                             <td>
                                 <div className="join">
                                     <button className="btn btn-ghost shadow-xl"><Pencil className="size-4"/></button>

@@ -33,6 +33,7 @@ const mediaService = {
     },
 
     addMedia: async (type: string, formData: any) => {
+        console.log(`Adding media of type ${type} with data: ${JSON.stringify(formData)}`);
         const novelData = {
             title: formData.title,
             chapter: formData.chapter,
