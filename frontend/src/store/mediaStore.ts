@@ -57,6 +57,7 @@ interface MediaStore {
     };
     formData: formDataRaw;
     currentMedia: string;
+    queryTitle: string;
     setCurrentMedia: (media: string) => void;
     getMedia: (type: string) => Promise<void>;
     getMediaByTitle: (type: string, title: string) => Promise<void>;
@@ -89,6 +90,7 @@ export const useMediaStore = create<MediaStore>((set, get) => ({
         link: "#",
     },
     currentMedia: "Novels",
+    queryTitle: "",
     setCurrentMedia: (media) => set({ currentMedia: media }),
     getMedia: async (type: string) => {
         set({ loading: { ...get().loading, [type]: true }});
