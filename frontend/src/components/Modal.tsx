@@ -43,6 +43,7 @@ function Modal() {
                                     placeholder="Enter Title" 
                                     className="input input-bordered w-full"
                                     value={formData.title ?? ''}
+                                    maxLength={255}
                                     onChange={(e) => setFormData({ ...formData, title: e.target.value })} />
 
                     {currentMedia === "Novels" && (
