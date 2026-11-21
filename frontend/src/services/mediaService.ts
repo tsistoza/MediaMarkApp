@@ -4,7 +4,7 @@ import type { formDataRaw } from "../store/mediaStore.ts";
 
 //dotenv.config();
 
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'http://localhost:5750';
 
 const map = {
     "Novels": "novels",

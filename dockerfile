@@ -8,4 +8,4 @@ RUN npm install
 COPY .env .
 COPY ./backend ./backend
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "build"]
