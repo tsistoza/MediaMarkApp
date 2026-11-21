@@ -24,17 +24,18 @@ function Navbar() {
     return (
         <div className="navbar bg-slate-950 shadow-sm">
             { /* LEFT END */ }
-            <div className="flex-1 outline-2 outline-dotted">
-                <a className="btn btn-ghost btn-lg text-2xl outline-dotted outline-2 outline-blue-500">MediaMark</a>
+            <div className="flex-1">
+                <a className="btn btn-ghost btn-lg text-2xl">MediaMark</a>
                 <button
-                       className="btn btn-ghost btn-sm outline-dotted outline-2 outline-green-500"
+                       className="btn btn-ghost btn-sm"
                        onClick={() => openModal(currentMedia)}>
                     Add {currentMedia}
                 </button>
             </div>
 
+
             { /* RIGHT END */ }
-            <div className="flex-none outline-2 outline-dotted outline-indigo-500">
+            <div className="flex-none">
                 { /* DROPDOWN */ }
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost">
