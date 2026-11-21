@@ -9,7 +9,8 @@ import videoRoutes from "./routes/videoRoutes.ts";
 import query from "./config/db.ts";
 
 dotenv.config();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.BACKEND_PORT || 3000;
+const POSTGRES_PORT = process.env.POSTGRES_PORT;
 const app = express();
 
 // Set Middleware
@@ -60,6 +61,7 @@ async function initDB() {
 
 initDB().then(() => {
     app.listen(PORT, () => {
-        console.log(`Server is running on ${PORT}`);
+        console.log(`DB is running on ${POSTGRES_PORT}`);
+        console.log(`Server is running on port ${PORT}`);
     });
 });
